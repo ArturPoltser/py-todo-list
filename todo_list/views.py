@@ -1,3 +1,4 @@
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -48,3 +49,10 @@ class TagUpdateView(generic.UpdateView):
 class TagDeleteView(generic.DeleteView):
     model = Tag
     success_url = reverse_lazy("todo_list:tag-list")
+
+
+def switch_task_status(request: HttpRequest, pk: int) -> HttpResponse:
+    task = Task.objects.get(id=pk)
+    task.status = not task.status
+    task.save()
+    return HttpResponseRedirect(reverse_lazy("todo_list:index"))

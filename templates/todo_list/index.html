@@ -2,7 +2,7 @@
 
 {% block content %}
   <div class="d-flex justify-content-between align-items-center">
-    <h1>ToDo List</h1><a href="{% url "todo_list:task-create" %}" style="float: right" class="btn btn-primary">Add task</a>
+    <h1>ToDo List</h1><a href="{% url 'todo_list:task-create' %}" style="float: right" class="btn btn-primary">Add new task</a>
   </div>
   {% if task_list %}
     {% for task in task_list %}
@@ -16,9 +16,9 @@
             {% endif %}
           </h4>
           {% if task.status %}
-            <a href="#" class="btn btn-secondary">Undo</a>
+            <a href="{% url 'todo_list:switch-task-status' pk=task.id %}" class="btn btn-secondary">Undo</a>
           {% else %}
-            <a href="#" class="btn btn-success">Complete</a>
+            <a href="{% url 'todo_list:switch-task-status' pk=task.id %}" class="btn btn-success">Complete</a>
           {% endif %}
         </div>
         <div class="card-footer">
@@ -28,8 +28,8 @@
           {% endif %}
           <br>
           <span>Tags: {% for tag in task.tag.all %}#{{ tag.name }} {% endfor %}</span>
-          <a href="{% url "todo_list:task-update" pk=task.id %}" style="color: green">🔄</a>
-          <a href="{% url "todo_list:task-delete" pk=task.id %}">❌</a>
+          <a href="{% url 'todo_list:task-update' pk=task.id %}" style="color: green">🔄</a>
+          <a href="{% url 'todo_list:task-delete' pk=task.id %}">❌</a>
           <br>
         </div>
       </div>
