@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>Tags<a href="{% url 'todo_list:tag-create' %}" style="float: right" class="btn btn-success">Create new tag</a></h1>
+  {% if tag_list %}
+    <table class="table table-striped table-bordered">
+      <tr>
+        <td><strong>Name</strong></td>
+        <td><strong>Update</strong></td>
+        <td><strong>Delete</strong></td>
+      </tr>
+      {% for tag in tag_list %}
+        <tr>
+          <td><strong>#{{ tag.name }}</strong></td>
+        <td><a class="btn btn-primary" href="{% url 'todo_list:tag-update' pk=tag.id %}">Update</a></td>
+        <td><a class="btn btn-danger" href="{% url 'todo_list:tag-delete' pk=tag.id %}">Delete</a></td>
+        </tr>
+      {% endfor %}
+
+    </table>
+
+  {% else %}
+    <p>There are no tags</p>
+  {% endif %}
+{% endblock %}
