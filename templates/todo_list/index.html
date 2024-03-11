@@ -27,7 +27,7 @@
             <span style="color: darkred"><strong>Deadline:</strong> {{ task.deadline }}</span>
           {% endif %}
           <br>
-          <span>Tags: {% for tag in task.tag.all %}{{ tag.name }} {% endfor %}</span>
+          <span>Tags: {% for tag in task.tag.all %}#{{ tag.name }} {% endfor %}</span>
           <a href="{% url "todo_list:task-update" pk=task.id %}" style="color: green">🔄</a>
           <a href="{% url "todo_list:task-delete" pk=task.id %}">❌</a>
           <br>
