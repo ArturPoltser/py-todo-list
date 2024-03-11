@@ -2,7 +2,7 @@
 
 {% block content %}
   <div class="d-flex justify-content-between align-items-center">
-    <h1>ToDo List</h1><a href="#" style="float: right" class="btn btn-primary">Add task</a>
+    <h1>ToDo List</h1><a href="{% url "todo_list:task-create" %}" style="float: right" class="btn btn-primary">Add task</a>
   </div>
   {% if task_list %}
     {% for task in task_list %}
@@ -27,11 +27,10 @@
             <span style="color: darkred"><strong>Deadline:</strong> {{ task.deadline }}</span>
           {% endif %}
           <br>
-          <span>Tags: {% for tag in task.tag.all %}{{ tag.name }}{% endfor %}</span>
-          <a href="#" style="color: green">🔄</a>
-          <a href="#">❌</a>
+          <span>Tags: {% for tag in task.tag.all %}{{ tag.name }} {% endfor %}</span>
+          <a href="{% url "todo_list:task-update" pk=task.id %}" style="color: green">🔄</a>
+          <a href="{% url "todo_list:task-delete" pk=task.id %}">❌</a>
           <br>
-
         </div>
       </div>
     {% endfor %}
