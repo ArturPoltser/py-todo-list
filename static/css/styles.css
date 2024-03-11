@@ -1,0 +1,9 @@
+body {
+    font-family: 'Pacifico', cursive;
+    background-color: darkgray;
+    padding: 20px;
+}
+
+.card {
+    border-radius: 20px;
+}
