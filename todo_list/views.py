@@ -1,4 +1,5 @@
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -7,7 +8,7 @@ from todo_list.models import Task, Tag
 
 
 class IndexView(generic.ListView):
-    model = Task
+    queryset = Task.objects.prefetch_related("tag")
     template_name = "todo_list/index.html"
     paginate_by = 5
 
@@ -52,7 +53,7 @@ class TagDeleteView(generic.DeleteView):
 
 
 def switch_task_status(request: HttpRequest, pk: int) -> HttpResponse:
-    task = Task.objects.get(id=pk)
+    task = get_object_or_404(Task, pk=pk)
     task.status = not task.status
     task.save()
     return HttpResponseRedirect(reverse_lazy("todo_list:index"))
